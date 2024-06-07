@@ -1,22 +1,25 @@
-import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux';
+import { setFilter } from '../redux/filterSlice';
+import { nanoid } from '@reduxjs/toolkit';
 
-export const Filter = ({ filter, setFilter }) => {
+export const Filter = () => {
+    const dispatch = useDispatch();
+
+    const filterInput = nanoid();
+
     const handleChange = event => {
-        setFilter(event.target.value);
+        dispatch(setFilter(event.target.value));
     };
 
-    return (<>
-    <h5>Find contacts by name</h5>
-    <input
-    type="text"
-    value={filter}
-    onChange={handleChange}
-    placeholder="Search contacts"
-        />
-    </>);
+    return (
+        <>
+            <h5>Find contacts by name</h5>
+            <input
+                type="text"
+                name="filter"
+                id={filterInput}
+                onChange={handleChange}
+                placeholder="Search contacts"
+            />
+        </>);
 };
-
-Filter.propTypes = {
-    filter: PropTypes.string,
-    setFilter: PropTypes.func,
-}
